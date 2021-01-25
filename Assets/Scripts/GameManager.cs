@@ -12,13 +12,19 @@ namespace HackedDesign
 
         [Header("Game")]
         [SerializeField] private Camera? mainCamera = null;
-        [SerializeField] private Ship? playerShip = null;
-        [SerializeField] private List<Ship> ships = null;
-        [SerializeField] private MermaidPool mermaidPool = null;
-        [SerializeField] private ProjectilePool projectilePool = null;
+        [SerializeField] private PlayerController? player = null;
+        [SerializeField] private List<Ship> ships = new List<Ship>();
+        [SerializeField] private List<GameObject> cursors = new List<GameObject>();
+        [SerializeField] private MermaidPool? mermaidPool = null;
+        [SerializeField] private ProjectilePool? projectilePool = null;
+        [SerializeField] private AudioSource? music = null;
 
         [Header("UI")]
-        [SerializeField] private UI.HudPresenter hudPanel = null;
+        
+        [SerializeField] private UI.HudPresenter? hudPanel = null;
+        [SerializeField] private UI.MainMenuPresenter? mainMenuPanel = null;
+        [SerializeField] private UI.CreditsPresenter? creditsPanel = null;
+        [SerializeField] private UI.OptionsPresenter? optionsPanel = null;
 
         private IState currentState = new EmptyState();
 
@@ -27,10 +33,10 @@ namespace HackedDesign
 #pragma warning restore CS8618        
 
         public Camera? MainCamera { get { return mainCamera; } private set { mainCamera = value; } }
-        public Ship? Player { get { return playerShip; } private set { playerShip = value; } }
+        public PlayerController? Player { get { return player; } private set { player = value; } }
         public List<Ship> Ships { get { return this.ships; }}
-        public MermaidPool MermaidPool { get => mermaidPool; private set => mermaidPool = value; }
-        public ProjectilePool ProjectilePool { get => projectilePool; private set => projectilePool = value; }
+        public MermaidPool? MermaidPool { get => mermaidPool; private set => mermaidPool = value; }
+        public ProjectilePool? ProjectilePool { get => projectilePool; private set => projectilePool = value; }
 
         public IState CurrentState
         {
@@ -47,8 +53,7 @@ namespace HackedDesign
                 this.currentState.Begin();
             }
         }
-
-        
+       
 
         private GameManager() => Instance = this;
 
@@ -59,8 +64,10 @@ namespace HackedDesign
         void LateUpdate() => CurrentState?.LateUpdate();
         void FixedUpdate() => CurrentState?.FixedUpdate();
 
-        public void SetPlaying() => CurrentState = new PlayingState(this.ships, this.hudPanel);
-        public void SetMainMenu() => CurrentState = new EmptyState();
+        public void SetPlaying() => CurrentState = new PlayingState(this.player, this.ships, this.cursors, this.music, this.hudPanel);
+        public void SetMainMenu() => CurrentState = new MainMenuState(this.player, this.ships, this.mainMenuPanel);
+        public void SetCredits() => CurrentState = new CreditsState(this.player, this.ships, this.creditsPanel);
+        public void SetOptions() => CurrentState = new OptionsState(this.player, this.ships, this.optionsPanel);
         public void SetGameOverCrash() => CurrentState = new GameOverCrashState();
         public void SetGameWin() => CurrentState = new GameOverWinState();
         public void SetGameLose() => CurrentState = new GameOverLoseState();
@@ -72,12 +79,17 @@ namespace HackedDesign
 
         private void Initialization()
         {
-            SetPlaying();
+            HideAllUI();
+            SetMainMenu();
         }        
 
         private void HideAllUI()
         {
-            this.hudPanel.Hide();
+            this.hudPanel?.Hide();
+            this.mainMenuPanel?.Hide();
+            this.creditsPanel?.Hide();
+            this.optionsPanel?.Hide();
+            this.cursors.ForEach(c => c.SetActive(false));
             // this.startMenuPanel.Hide();
             // this.deadPanel.Hide();
             // this.dialogPanel.Hide();

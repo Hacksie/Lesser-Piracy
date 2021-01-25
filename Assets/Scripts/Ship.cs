@@ -9,15 +9,17 @@ namespace HackedDesign
     {
         [Header("GameObjects")]
         [SerializeField] private AbstractController controller;
-        [SerializeField] private Rigidbody rigidbody;
+        [SerializeField] private Rigidbody rb;
         [SerializeField] private Transform shipModel;
-        [SerializeField] private Waves waves = null;
         [SerializeField] private Transform cannonOrigin;
+        [SerializeField] private ParticleSystem explosionParticles;
+        [SerializeField] private AudioSource fireSFX;
+        [SerializeField] private AudioSource collectSFX;
+
+        [Header("Reference GameObjects")]
+        [SerializeField] private Waves waves = null;
         [SerializeField] private Transform cannonTarget;
         [SerializeField] private ProjectilePool projectilePool;
-        
-
-
 
         [Header("Settings")]
         [SerializeField] private float baseForwardSpeed = 20.0f;
@@ -33,7 +35,7 @@ namespace HackedDesign
 
         public int CurrentChests { get { return chests; } }
         public float CurrentSpeed { get; private set; }
-        public bool CurrentLaunchState { get { return Time.time > (lastFireTime + fireSpeed); }}
+        public bool CurrentLaunchState { get { return Time.time > (lastFireTime + fireSpeed); } }
         //private float turnDirection = 0;
         //private Vector2 mousePosition = Vector2.zero;
 
@@ -60,11 +62,19 @@ namespace HackedDesign
 
         public void Launch()
         {
-            if(this.chests > 0 && Time.time > (lastFireTime + fireSpeed))
+            if (this.chests > 0 && Time.time > (lastFireTime + fireSpeed))
             {
                 lastFireTime = Time.time;
                 this.chests--;
                 projectilePool.Launch(this.gameObject, cannonOrigin.position, cannonTarget.position, projectileTime);
+                if (fireSFX != null)
+                {
+                    fireSFX.Play();
+                }
+                if (explosionParticles != null)
+                {
+                    explosionParticles.Play(true);
+                }
             }
         }
 
@@ -72,7 +82,12 @@ namespace HackedDesign
         {
             Logger.Log(this, "Gained a chest :(");
             this.chests += count;
-            if(this.chests < 0) this.chests = 0;
+            if (this.chests < 0) this.chests = 0;
+            if (collectSFX != null)
+            {
+                collectSFX.Play();
+            }
+
         }
 
         private void Movement()
@@ -80,31 +95,30 @@ namespace HackedDesign
             var position = this.transform.position;
             CurrentSpeed = Mathf.Clamp(baseForwardSpeed + (chests * chestForwardSpeed), 0, baseForwardSpeed);
             position = position + (this.transform.forward * CurrentSpeed * Time.fixedDeltaTime);
-            rigidbody.MovePosition(position);
+            rb.MovePosition(position);
         }
 
         private void ShipTurn()
         {
             Quaternion deltaRotation = Quaternion.Euler(0, controller.TurnDirection * baseTurnSpeed * Time.fixedDeltaTime, 0);
-            rigidbody.MoveRotation(rigidbody.rotation * deltaRotation);
+            rb.MoveRotation(rb.rotation * deltaRotation);
             //shipModel.rotation = Quaternion.Euler(0,0,-controller.TurnDirection);
         }
 
         private void ShipFloat()
         {
-            var shipPosition = this.transform.position;
-            shipPosition.y = waves.GetHeight(this.transform.position); //Mathf.Lerp(shipPosition.y, waves.GetHeight(this.transform.position), 5 * Time.fixedDeltaTime);
 
-            shipModel.position = shipPosition;
+            // var shipPosition = this.transform.position;
+            // shipPosition.y = waves.GetHeight(this.transform.position); //Mathf.Lerp(shipPosition.y, waves.GetHeight(this.transform.position), 5 * Time.fixedDeltaTime);
+            // shipModel.position = shipPosition;
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if(other.CompareTag("Player"))
+            if (other.CompareTag("Player"))
             {
                 crash.Invoke();
             }
         }
-
     }
 }

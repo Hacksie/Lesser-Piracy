@@ -8,10 +8,13 @@ namespace HackedDesign
 {
     public class AIController : AbstractController
     {
-        public override float TurnDirection { get { return 0; } }
+        [Header("GameObjects")]
         [SerializeField] private Transform target;
-        //[SerializeField] private float targetSwitchSpeed = 1.25f;
+
+        [Header("Settings")]
         [SerializeField] private float fireSpeed = 2.75f;
+
+        public override float TurnDirection { get { return 0; } }
 
         private float lastFire = 0;
         private Ship us;
@@ -25,44 +28,45 @@ namespace HackedDesign
 
         public void Update()
         {
-
             if (!GameManager.Instance.CurrentState.PlayerActionAllowed)
             {
                 return;
             }
-            
+
             if (Time.time > (lastFire + fireSpeed))
             {
-
-
                 lastFire = Time.time;
-                float decision = UnityEngine.Random.value;
                 List<Ship> targets = new List<Ship>(GameManager.Instance.Ships);
 
                 targets.Remove(us);
 
-                if (decision <= 0.33f)
+                int decision = UnityEngine.Random.Range(0, 4);
+                switch (decision)
                 {
-                    // Attack the leader
-                    targetShip = targets.OrderByDescending(s => s.transform.position.z).First();
-                    Logger.Log(this, "Attack the leader ", targetShip.name);
-                }
-                else if (decision > 0.33f && decision <= 0.66f)
-                {
-                    // Attack with least chests
-                    targetShip = targets.OrderBy(s => s.CurrentChests).First();
-                    Logger.Log(this, "Attack the least ", targetShip.name);
-                }
-                else
-                {
-                    // Attack random
-                    targetShip = targets[Random.Range(0, targets.Count)];
-                    Logger.Log(this, "Attack random ", targetShip.name);
+                    case 0:
+                        // Attack the leader
+                        targetShip = targets.OrderByDescending(s => s.transform.position.z).First();
+                        Logger.Log(this, "Attack the leader ", targetShip.name);
+                        break;
+                    case 1:
+                        // Attack with least chests
+                        targetShip = targets.OrderBy(s => s.CurrentChests).First();
+                        Logger.Log(this, "Attack with least ", targetShip.name);
+                        break;
+                    case 2:
+                        // Attack nearest
+                        targetShip = targets.OrderBy(s => (us.transform.position - s.transform.position).magnitude).First();
+                        Logger.Log(this, "Attack nearest ", targetShip.name);
+                        break;
+                    case 3:
+                    default:
+                        // Attack random
+                        targetShip = targets[Random.Range(0, targets.Count)];
+                        Logger.Log(this, "Attack random ", targetShip.name);
+                        break;
+                    // attack last that attacked us
                 }
 
-                // Attack nearest
-                // targetShip = targets.OrderBy(s => (us.transform.position - s.transform.position).magnitude).First();
-                // attack last that attacked us
                 if (targetShip != null)
                 {
                     Vector2 r = Random.insideUnitCircle;
@@ -72,13 +76,7 @@ namespace HackedDesign
 
             }
 
-            if (targetShip != null)
-            {
-                // Lerp toward position
 
-
-                //GameManager.Instance.ProjectilePool.Launch(this.gameObject, origin.position, this.target.transform.position + (this.target.transform.forward * 25f), 2.0f); // FIXME: Account for ship speed
-            }
         }
     }
 }

@@ -1,3 +1,4 @@
+#nullable enable
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
@@ -8,9 +9,9 @@ namespace HackedDesign
     {
         [Header("GameObjects")]
         [SerializeField] private Camera? lookCam;
-        [SerializeField] private Transform cameraGimbal;
-        [SerializeField] private Transform cursor;
-        [SerializeField] private Waves waves = null;
+        [SerializeField] private Transform? cameraGimbal;
+        [SerializeField] private Transform? cursor;
+        [SerializeField] private Waves? waves = null;
 
 
         [Header("Settings")]
@@ -20,7 +21,7 @@ namespace HackedDesign
         private float rotateDirection = 0;
         private float turnDirection = 0;
         private Vector2 mousePosition = Vector2.zero;
-        private Ship us;
+        private Ship? us = null;
 
         public override float TurnDirection { get { return this.turnDirection; } }
 
@@ -32,9 +33,7 @@ namespace HackedDesign
         void Update()
         {
             UpdateCursor();
-
-            cameraGimbal.Rotate(0, rotateDirection * rotateSpeed * Time.deltaTime, 0);
-            //cameraGimbal.rotation = Quaternion.Euler(0, , 0);
+            UpdateCameraGimbal();
         }
 
         public void TurnEvent(InputAction.CallbackContext context)
@@ -52,10 +51,10 @@ namespace HackedDesign
             {
                 return;
             }
+
             if (context.performed)
             {
-                us.Launch();
-                //launch.Invoke();
+                us?.Launch();
             }
         }
 
@@ -71,7 +70,7 @@ namespace HackedDesign
             }
             else if (context.canceled)
             {
-                rotateDirection = 0;
+                rotateDirection = 0f;
             }
         }
 
@@ -84,28 +83,40 @@ namespace HackedDesign
             mousePosition = context.ReadValue<Vector2>();
         }
 
-
+        public void SetCameraGimbal(Vector3 rotation)
+        {
+            if (cameraGimbal != null)
+            {
+                cameraGimbal.rotation = Quaternion.Euler(rotation);
+            }
+        }
 
         private void UpdateCursor()
         {
-            var plane = new Plane(Vector3.up, 0);
+            if (lookCam == null || cursor == null || waves == null)
+            {
+                return;
+            }
+
+            var plane = new Plane(Vector3.up, 0f);
             var ray = lookCam.ScreenPointToRay(mousePosition);
-            float enter = 0.0f;
+            float enter = 0f;
 
             Vector3 position = cursor.position;
 
             if (plane.Raycast(ray, out enter))
             {
-                //Get the point that is clicked
                 Vector3 hitPoint = ray.GetPoint(enter);
-
-                //Move your cube GameObject to the point where you clicked
                 position = hitPoint;
             }
 
             position.y = waves.GetHeight(position);
-
             cursor.position = position;
+        }
+
+        private void UpdateCameraGimbal()
+        {
+            cameraGimbal?.Rotate(0f, rotateDirection * rotateSpeed * Time.deltaTime, 0f);
         }
 
     }
