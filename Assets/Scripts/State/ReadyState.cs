@@ -3,22 +3,26 @@ using UnityEngine;
 
 namespace HackedDesign
 {
-    public class PlayingState : IState
+    public class ReadyState : IState
     {
         private PlayerController player;
         private List<Ship> ships;
         private List<GameObject> cursors;
         // private EntityPool pool;
         private UI.AbstractPresenter hudPresenter;
+        private UI.ReadyPresenter readyPresenter;
         private ObstaclePool obstaclePool;
         private PropsPool propsPool;
         private AudioSource music;
         // private WeaponManager weaponManager;
 
-        public bool PlayerActionAllowed => true;
+        public bool PlayerActionAllowed => false;
+
+        private int count = 3;
+        private float timerStart = 0;
 
 
-        public PlayingState(PlayerController player, List<Ship> ships, List<GameObject> cursors, ObstaclePool obstaclePool,PropsPool propsPool, AudioSource music, UI.AbstractPresenter hudPresenter)
+        public ReadyState(PlayerController player, List<Ship> ships, List<GameObject> cursors, ObstaclePool obstaclePool, PropsPool propsPool, AudioSource music, UI.ReadyPresenter readyPresenter, UI.AbstractPresenter hudPresenter)
         {
             this.player = player;
             this.ships = ships;
@@ -26,51 +30,60 @@ namespace HackedDesign
             this.music = music;
             this.obstaclePool = obstaclePool;
             this.propsPool = propsPool;
-            // this.pool = pool;
             this.hudPresenter = hudPresenter;
-            // this.weaponManager = weaponManager;
+            this.readyPresenter = readyPresenter;
+
         }
 
 
         public void Begin()
         {
+            this.player.SetCameraGimbal(new Vector3(0f, 0f, 0));
             this.cursors.ForEach(c => c.SetActive(true));
-            this.ships.ForEach(s => s.Begin());
-            this.cursors.ForEach(c => c.gameObject.SetActive(true));
+            this.ships.ForEach(s => s.Reset());
+            this.ships.ForEach(s => s.gameObject.SetActive(true));
+            //this.cursors.ForEach(c => c.gameObject.SetActive(true));
             this.hudPresenter.Show();
-            //this.music.Play();
-            //this.obstaclePool.SpawnRandomObstacles();
-            //this.propsPool.SpawnRandomProps();
+            this.music.Play();
+            this.obstaclePool.SpawnRandomObstacles();
+            this.propsPool.SpawnRandomProps();
+            this.readyPresenter.Show();
+            this.timerStart = Time.time;
         }
 
         public void End()
         {
             Cursor.visible = true;
             this.hudPresenter.Hide();
-            //this.music.Stop();
+            this.readyPresenter.Hide();
+            
             this.cursors.ForEach(c => c.SetActive(false));
-            //this.obstaclePool.DestroyObstacles(); // FIXME: Move to end state
-            //this.propsPool.DestroyProps();
         }
 
         public void Update()
         {
             Cursor.visible = false;
+
+            count = 3 - Mathf.FloorToInt(Time.time - timerStart);
             //this.player.UpdateBehaviour();
             // foreach (var ship in this.ships)
             // {
             //     ship.UpdateBehaviour();
             // }
+            if (count < 0)
+            {
+                GameManager.Instance.SetPlaying();
+            }
         }
 
 
         public void FixedUpdate()
         {
             //this.player.FixedUpdateBehaviour();
-            foreach (var ship in this.ships)
-            {
-                ship.FixedUpdateBehaviour();
-            }
+            // foreach (var ship in this.ships)
+            // {
+            //     ship.FixedUpdateBehaviour();
+            // }
         }
 
         public void LateUpdate()
@@ -78,6 +91,8 @@ namespace HackedDesign
             // this.player.LateUpdateBehaviour();
             // this.pool.UpdateLateBehaviour();
             this.hudPresenter.Repaint();
+            this.readyPresenter.Count = count;
+            this.readyPresenter.Repaint();
         }
 
 
@@ -85,7 +100,7 @@ namespace HackedDesign
 
         public void Start()
         {
-            GameManager.Instance.SetPause();
+
         }
 
         public void Select()

@@ -5,17 +5,15 @@ namespace HackedDesign
 {
     public class GameOverCrashState : IState
     {
-        //private List<Ship> ships;
-        // private EntityPool pool;
-        //private UI.AbstractPresenter hudPresenter;
-        // private WeaponManager weaponManager;
+        private UI.AbstractPresenter crashPresenter;
+        private AudioSource music;
 
         public bool PlayerActionAllowed => false;
 
-        //public PlayingState(PlayerController player, WeaponManager weaponManager, EntityPool pool, UI.AbstractPresenter hudPresenter)
-        public GameOverCrashState()
+        public GameOverCrashState(UI.AbstractPresenter crashPresenter, AudioSource music)
         {
-            
+            this.crashPresenter = crashPresenter;
+            this.music = music;
             //this.ships = ships;
             // this.pool = pool;
             //this.hudPresenter = hudPresenter;
@@ -26,21 +24,20 @@ namespace HackedDesign
         public void Begin()
         {
             Logger.Log("GameOverCrashState", "Game Over!");
-            // GameManager.Instance.SaveGame();
-            //this.hudPresenter.Show();
-            // this.weaponManager.ShowCurrentWeapon();
-            // Cursor.lockState = CursorLockMode.Locked;
-            // AudioManager.Instance.PlayRandomGameMusic();
-            // AudioManager.Instance.PlayGo();
+            this.crashPresenter.Show();
+            this.crashPresenter.Repaint();
+
         }
 
         public void End()
         {
             Cursor.visible = true;
+            this.crashPresenter.Hide();
+            this.music.Stop();
             //this.hudPresenter.Hide();
         }
 
-  
+
         public void FixedUpdate()
         {
             //this.player.FixedUpdateBehaviour();
@@ -57,10 +54,10 @@ namespace HackedDesign
             //this.hudPresenter.Repaint();
         }
 
-   
+
         public void Start()
         {
-            
+
         }
 
         public void Select()

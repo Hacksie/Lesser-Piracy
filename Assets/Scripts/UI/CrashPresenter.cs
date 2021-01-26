@@ -5,18 +5,18 @@ using System.Linq;
 
 namespace HackedDesign.UI
 {
-    public class CreditsPresenter : AbstractPresenter
+    public class CrashPresenter : AbstractPresenter
     {
-
+        
 
         public override void Repaint()
         {
-
+           
         }
+
         public void CloseEvent()
         {
-            //GameManager.Instance.PlayerPreferences.Save();
             GameManager.Instance.SetMainMenu();
-        }
+        }        
     }
 }

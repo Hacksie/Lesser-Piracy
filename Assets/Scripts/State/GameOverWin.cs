@@ -5,56 +5,43 @@ namespace HackedDesign
 {
     public class GameOverWinState : IState
     {
-        //private List<Ship> ships;
-        // private EntityPool pool;
-        //private UI.AbstractPresenter hudPresenter;
-        // private WeaponManager weaponManager;
+        private UI.AbstractPresenter winPresenter;
+        private AudioSource music;
 
         public bool PlayerActionAllowed => false;
 
-        //public PlayingState(PlayerController player, WeaponManager weaponManager, EntityPool pool, UI.AbstractPresenter hudPresenter)
-        public GameOverWinState()
+        
+        public GameOverWinState(UI.AbstractPresenter winPresenter, AudioSource music)
         {
-            
-            //this.ships = ships;
-            // this.pool = pool;
-            //this.hudPresenter = hudPresenter;
-            // this.weaponManager = weaponManager;
+           this.winPresenter = winPresenter; 
+           this.music = music;
+           
         }
 
 
         public void Begin()
         {
             Logger.Log("GameOverWinState", "Game Over!");
-            // GameManager.Instance.SaveGame();
-            //this.hudPresenter.Show();
-            // this.weaponManager.ShowCurrentWeapon();
-            // Cursor.lockState = CursorLockMode.Locked;
-            // AudioManager.Instance.PlayRandomGameMusic();
-            // AudioManager.Instance.PlayGo();
+            this.winPresenter.Show();
+            this.winPresenter.Repaint();
         }
 
         public void End()
         {
             Cursor.visible = true;
-            //this.hudPresenter.Hide();
+            this.winPresenter.Hide();
+            this.music.Stop();
+            
         }
 
   
         public void FixedUpdate()
         {
-            //this.player.FixedUpdateBehaviour();
-            // foreach(var ship in this.ships)
-            // {
-            //     ship.FixedUpdateBehaviour();
-            // }
         }
 
         public void LateUpdate()
         {
-            // this.player.LateUpdateBehaviour();
-            // this.pool.UpdateLateBehaviour();
-            //this.hudPresenter.Repaint();
+
         }
 
    
@@ -70,12 +57,7 @@ namespace HackedDesign
 
         public void Update()
         {
-            // Cursor.visible = false;
-            // //this.player.UpdateBehaviour();
-            // foreach(var ship in this.ships)
-            // {
-            //     ship.UpdateBehaviour();
-            // }            
+           
         }
 
     }

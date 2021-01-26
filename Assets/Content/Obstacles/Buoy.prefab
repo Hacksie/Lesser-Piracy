@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5903289942582146034}
   - component: {fileID: 5461328286341368350}
+  - component: {fileID: 1885222863028480079}
   m_Layer: 0
   m_Name: Buoy
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44,7 +45,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08b8701ace816254c8c95c1a408aabf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waves: {fileID: 0}
+--- !u!136 &1885222863028480079
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5903289942582146035}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1
+  m_Height: 3
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1001 &7508771838980031343
 PrefabInstance:
   m_ObjectHideFlags: 0

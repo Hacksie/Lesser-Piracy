@@ -38,9 +38,9 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Rotate",
+                    "name": "Start",
                     "type": "Button",
-                    "id": "4a79f142-6a92-4b8f-a372-5f3bb26370e9",
+                    "id": "e5fb254b-adab-4b87-b03a-994dc32af58a",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -313,12 +313,34 @@
                 },
                 {
                     "name": "",
-                    "id": "8c890676-c4ca-4af7-99a2-c5ed9fb4ad8a",
-                    "path": "<Mouse>/rightButton",
+                    "id": "71706a72-86ff-4637-861f-cf8141174a00",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Rotate",
+                    "action": "Start",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "64c6e63a-135c-482a-8e51-f8107db08c88",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Start",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f31e2c9f-5ceb-4941-a2be-911553fe79da",
+                    "path": "<WebGLGamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Start",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

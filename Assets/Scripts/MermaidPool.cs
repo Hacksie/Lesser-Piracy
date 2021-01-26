@@ -1,4 +1,3 @@
-using System.Text;
 using UnityEngine;
 
 namespace HackedDesign
@@ -7,8 +6,6 @@ namespace HackedDesign
     {
         [SerializeField] private Transform parent;
         [SerializeField] private Mermaid mermaidPrefab;
-        [SerializeField] private Waves waves = null;
-
 
         public void Awake()
         {
@@ -19,7 +16,7 @@ namespace HackedDesign
         {
             position.y = 0.0f;
             Mermaid m = Instantiate(mermaidPrefab, position, Quaternion.identity, this.parent);
-            m.Anger(attacker, this.waves);
+            m.Anger(attacker);
             //Destroy(m.gameObject, 5);
         }        
     }

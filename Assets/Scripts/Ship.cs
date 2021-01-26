@@ -17,17 +17,18 @@ namespace HackedDesign
         [SerializeField] private AudioSource collectSFX;
 
         [Header("Reference GameObjects")]
-        [SerializeField] private Waves waves = null;
         [SerializeField] private Transform cannonTarget;
         [SerializeField] private ProjectilePool projectilePool;
 
         [Header("Settings")]
+        [SerializeField] private Vector3 startPosition = Vector3.zero;
         [SerializeField] private float baseForwardSpeed = 20.0f;
         [SerializeField] private float chestForwardSpeed = -1.0f;
         [SerializeField] private float baseTurnSpeed = 10.0f;
         [SerializeField] private int chests = 10;
         [SerializeField] private float projectileTime = 2.0f;
         [SerializeField] private float fireSpeed = 3.0f;
+
 
         [SerializeField] private UnityEvent crash;
 
@@ -48,7 +49,7 @@ namespace HackedDesign
 
         public void UpdateBehaviour()
         {
-            ShipFloat();
+
         }
 
         public void FixedUpdateBehaviour()
@@ -58,6 +59,17 @@ namespace HackedDesign
                 Movement();
                 ShipTurn();
             }
+        }
+
+        public void Reset()
+        {
+            this.transform.position = startPosition;
+            this.transform.rotation = Quaternion.identity;
+        }
+
+        public void Begin()
+        {
+            lastFireTime = Time.time;
         }
 
         public void Launch()
@@ -102,22 +114,22 @@ namespace HackedDesign
         {
             Quaternion deltaRotation = Quaternion.Euler(0, controller.TurnDirection * baseTurnSpeed * Time.fixedDeltaTime, 0);
             rb.MoveRotation(rb.rotation * deltaRotation);
-            //shipModel.rotation = Quaternion.Euler(0,0,-controller.TurnDirection);
-        }
-
-        private void ShipFloat()
-        {
-
-            // var shipPosition = this.transform.position;
-            // shipPosition.y = waves.GetHeight(this.transform.position); //Mathf.Lerp(shipPosition.y, waves.GetHeight(this.transform.position), 5 * Time.fixedDeltaTime);
-            // shipModel.position = shipPosition;
+            shipModel.localRotation = Quaternion.Euler(0, 0, -controller.TurnDirection * 2); // FIXME: lerp me
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player"))
+            if (GameManager.Instance.CurrentState.PlayerActionAllowed)
             {
-                crash.Invoke();
+                if (other.CompareTag("Player"))
+                {
+                    crash.Invoke();
+                }
+
+                if (other.CompareTag("Obstacle"))
+                {
+                    crash.Invoke();
+                }
             }
         }
     }

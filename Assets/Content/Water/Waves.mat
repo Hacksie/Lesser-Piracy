@@ -162,7 +162,7 @@ Material:
     m_Ints: []
     m_Floats:
     - Vector1_6CA33E8F: 0.075
-    - Vector1_6EB09C8B: 50
+    - Vector1_6EB09C8B: 100
     - _AlphaClip: 0
     - _BASE_COLOR_WEIGHT: 1
     - _BUMP_MAP_STRENGTH: 0.3

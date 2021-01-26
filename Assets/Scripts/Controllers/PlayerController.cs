@@ -83,6 +83,19 @@ namespace HackedDesign
             mousePosition = context.ReadValue<Vector2>();
         }
 
+        public void StartEvent(InputAction.CallbackContext context)
+        {
+            if (!GameManager.Instance.CurrentState.PlayerActionAllowed)
+            {
+                return;
+            }
+            if (context.started)
+            {
+                GameManager.Instance.CurrentState.Start();
+            }
+            
+        }
+
         public void SetCameraGimbal(Vector3 rotation)
         {
             if (cameraGimbal != null)

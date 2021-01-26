@@ -11,7 +11,7 @@ namespace HackedDesign
             // End game
             if(other.CompareTag("Player"))   
             {
-                if(other.gameObject == GameManager.Instance.Player)
+                if(other.gameObject == GameManager.Instance.Player.gameObject)
                 {
                     GameManager.Instance.SetGameWin();
                 }

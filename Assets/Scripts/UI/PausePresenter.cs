@@ -5,18 +5,23 @@ using System.Linq;
 
 namespace HackedDesign.UI
 {
-    public class OptionsPresenter : AbstractPresenter
+    public class PausePresenter : AbstractPresenter
     {
-
+        
 
         public override void Repaint()
         {
-
+           
         }
+
+        public void ResumeEvent()
+        {
+            GameManager.Instance.SetPlaying();
+        }
+
         public void CloseEvent()
         {
-            //GameManager.Instance.PlayerPreferences.Save();
             GameManager.Instance.SetMainMenu();
-        }
+        }        
     }
 }

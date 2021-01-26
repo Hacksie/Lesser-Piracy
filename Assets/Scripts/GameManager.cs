@@ -17,14 +17,21 @@ namespace HackedDesign
         [SerializeField] private List<GameObject> cursors = new List<GameObject>();
         [SerializeField] private MermaidPool? mermaidPool = null;
         [SerializeField] private ProjectilePool? projectilePool = null;
-        [SerializeField] private AudioSource? music = null;
+        [SerializeField] private ObstaclePool? obstaclePool = null;
+        [SerializeField] private Waves? waves = null;
+        [SerializeField] private PropsPool? propsPool = null;
+        [SerializeField] private AudioSource? menuMusic = null;
+        [SerializeField] private AudioSource? playMusic = null;
 
         [Header("UI")]
         
         [SerializeField] private UI.HudPresenter? hudPanel = null;
         [SerializeField] private UI.MainMenuPresenter? mainMenuPanel = null;
-        [SerializeField] private UI.CreditsPresenter? creditsPanel = null;
-        [SerializeField] private UI.OptionsPresenter? optionsPanel = null;
+        [SerializeField] private UI.ReadyPresenter? readyPanel = null;
+        [SerializeField] private UI.CrashPresenter? crashPanel = null;
+        [SerializeField] private UI.LosePresenter? losePanel = null;
+        [SerializeField] private UI.WinPresenter? winPanel = null;
+        [SerializeField] private UI.PausePresenter? pausePanel = null;
 
         private IState currentState = new EmptyState();
 
@@ -37,6 +44,7 @@ namespace HackedDesign
         public List<Ship> Ships { get { return this.ships; }}
         public MermaidPool? MermaidPool { get => mermaidPool; private set => mermaidPool = value; }
         public ProjectilePool? ProjectilePool { get => projectilePool; private set => projectilePool = value; }
+        public Waves? Waves { get => waves; private set => waves = value; }
 
         public IState CurrentState
         {
@@ -64,13 +72,13 @@ namespace HackedDesign
         void LateUpdate() => CurrentState?.LateUpdate();
         void FixedUpdate() => CurrentState?.FixedUpdate();
 
-        public void SetPlaying() => CurrentState = new PlayingState(this.player, this.ships, this.cursors, this.music, this.hudPanel);
-        public void SetMainMenu() => CurrentState = new MainMenuState(this.player, this.ships, this.mainMenuPanel);
-        public void SetCredits() => CurrentState = new CreditsState(this.player, this.ships, this.creditsPanel);
-        public void SetOptions() => CurrentState = new OptionsState(this.player, this.ships, this.optionsPanel);
-        public void SetGameOverCrash() => CurrentState = new GameOverCrashState();
-        public void SetGameWin() => CurrentState = new GameOverWinState();
-        public void SetGameLose() => CurrentState = new GameOverLoseState();
+        public void SetPlaying() => CurrentState = new PlayingState(this.player, this.ships, this.cursors, this.obstaclePool, this.propsPool, this.playMusic, this.hudPanel);
+        public void SetMainMenu() => CurrentState = new MainMenuState(this.player, this.ships, this.menuMusic, this.mainMenuPanel);
+        public void SetGameOverCrash() => CurrentState = new GameOverCrashState(this.crashPanel, this.playMusic);
+        public void SetGameWin() => CurrentState = new GameOverWinState(this.winPanel, this.playMusic);
+        public void SetGameLose() => CurrentState = new GameOverLoseState(this.losePanel, this.playMusic);
+        public void SetReady() => CurrentState = new ReadyState(this.player, this.ships, this.cursors, this.obstaclePool, this.propsPool, this.playMusic, this.readyPanel, this.hudPanel);
+        public void SetPause() => CurrentState = new PauseState(this.pausePanel);
 
         private void CheckBindings()
         {
@@ -87,8 +95,11 @@ namespace HackedDesign
         {
             this.hudPanel?.Hide();
             this.mainMenuPanel?.Hide();
-            this.creditsPanel?.Hide();
-            this.optionsPanel?.Hide();
+            this.readyPanel?.Hide();
+            this.crashPanel?.Hide();
+            this.losePanel?.Hide();
+            this.winPanel?.Hide();
+            this.pausePanel?.Hide();
             this.cursors.ForEach(c => c.SetActive(false));
             // this.startMenuPanel.Hide();
             // this.deadPanel.Hide();

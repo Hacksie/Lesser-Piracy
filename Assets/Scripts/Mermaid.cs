@@ -10,15 +10,12 @@ namespace HackedDesign
         [SerializeField] private GameObject chest;
 
         private GameObject target;
-        private Waves waves;
-
         private float angerTime = 0;
         private bool fired = false;
 
-        public void Anger(GameObject target, Waves waves)
+        public void Anger(GameObject target)
         {
             this.target = target;
-            this.waves = waves;
             this.angerTime = Time.time;
             Destroy(this.gameObject, 5);
         }
@@ -30,12 +27,10 @@ namespace HackedDesign
                 this.transform.LookAt(this.target.transform, Vector3.up);
             }
 
-            if(this.waves != null)
-            {
-                var pos = this.transform.position;
-                pos.y = this.waves.GetHeight(pos);
+            // FIXME: Use float component
+            var pos = this.transform.position;
+                pos.y = GameManager.Instance.Waves.GetHeight(pos);
                 this.transform.position = pos;
-            }
 
             if(!fired && Time.time > (this.angerTime + attackDelay))
             {

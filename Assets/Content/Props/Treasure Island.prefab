@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2999869504212475230}
   - component: {fileID: 2999869504212475229}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: X Cursor (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 2999869504343850954}
   - component: {fileID: 1552985266}
   - component: {fileID: 1552985267}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Treasure Island
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -221,6 +221,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: boat_small (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d190085c2c94a1b42ba584c273d13c1a, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d190085c2c94a1b42ba584c273d13c1a, type: 3}
 --- !u!4 &367490923952120236 stripped
@@ -294,6 +298,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: eccd2b356f0b4ed46b2351de7c68b658, type: 3}
       propertyPath: m_Name
       value: hole
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: eccd2b356f0b4ed46b2351de7c68b658, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eccd2b356f0b4ed46b2351de7c68b658, type: 3}
@@ -369,6 +377,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ship_wreck (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d62cc8a13d2456444906c4c311257bae, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d62cc8a13d2456444906c4c311257bae, type: 3}
 --- !u!4 &2456248345924786408 stripped
@@ -442,6 +454,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 29674fd2cccbe0a4b813e80bda66930f, type: 3}
       propertyPath: m_Name
       value: formation_rock
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 29674fd2cccbe0a4b813e80bda66930f, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 29674fd2cccbe0a4b813e80bda66930f, type: 3}
@@ -517,6 +533,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ship_wreck
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d62cc8a13d2456444906c4c311257bae, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d62cc8a13d2456444906c4c311257bae, type: 3}
 --- !u!4 &3326774838155568302 stripped
@@ -591,6 +611,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: palm_short
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ee8fd268003c8474b8246c967bc649c8, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3107386567491885531, guid: ee8fd268003c8474b8246c967bc649c8, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7619681418793645007, guid: ee8fd268003c8474b8246c967bc649c8, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee8fd268003c8474b8246c967bc649c8, type: 3}
 --- !u!4 &3326774837919879054 stripped
@@ -661,9 +693,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -2387713629585297344, guid: 5a694c59a07192d43be4b110b278cb8b, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5a694c59a07192d43be4b110b278cb8b, type: 3}
       propertyPath: m_Name
       value: cannonLarge
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5a694c59a07192d43be4b110b278cb8b, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a694c59a07192d43be4b110b278cb8b, type: 3}
@@ -735,9 +775,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6274082498778130712, guid: a5ccf13b39cc656408f767823fefe433, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a5ccf13b39cc656408f767823fefe433, type: 3}
       propertyPath: m_Name
       value: palm_long
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a5ccf13b39cc656408f767823fefe433, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6886124224145094656, guid: a5ccf13b39cc656408f767823fefe433, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5ccf13b39cc656408f767823fefe433, type: 3}
@@ -808,6 +860,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 37da0230279a3284691b3fc68b3dfea9, type: 3}
       propertyPath: m_Name
       value: formationLarge_rock
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 37da0230279a3284691b3fc68b3dfea9, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37da0230279a3284691b3fc68b3dfea9, type: 3}
@@ -883,6 +939,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tower
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 74fe2cd3070419e4997d13de5d962856, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74fe2cd3070419e4997d13de5d962856, type: 3}
 --- !u!4 &3326774837382557820 stripped
@@ -953,9 +1013,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 18.669006
       objectReference: {fileID: 0}
+    - target: {fileID: -7626498353328306712, guid: cdc53b657662a92489c95009d843b0ce, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -4819223349682164798, guid: cdc53b657662a92489c95009d843b0ce, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -3949436395788077964, guid: cdc53b657662a92489c95009d843b0ce, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -3924740746642414787, guid: cdc53b657662a92489c95009d843b0ce, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -2652130149045022449, guid: cdc53b657662a92489c95009d843b0ce, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: cdc53b657662a92489c95009d843b0ce, type: 3}
       propertyPath: m_Name
       value: pirate_captain
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cdc53b657662a92489c95009d843b0ce, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5918342603771499550, guid: cdc53b657662a92489c95009d843b0ce, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7668100837431030959, guid: cdc53b657662a92489c95009d843b0ce, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cdc53b657662a92489c95009d843b0ce, type: 3}
@@ -1031,6 +1123,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: plant
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7f8439e285f27ef4395553a3796cc3a7, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f8439e285f27ef4395553a3796cc3a7, type: 3}
 --- !u!4 &8962967564268217297 stripped
@@ -1104,6 +1200,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: d190085c2c94a1b42ba584c273d13c1a, type: 3}
       propertyPath: m_Name
       value: boat_small
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d190085c2c94a1b42ba584c273d13c1a, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d190085c2c94a1b42ba584c273d13c1a, type: 3}
