@@ -40,6 +40,7 @@ namespace HackedDesign
         {
             if (!GameManager.Instance.CurrentState.PlayerActionAllowed)
             {
+                this.turnDirection = 0;
                 return;
             }
             this.turnDirection = context.ReadValue<float>();
@@ -62,6 +63,7 @@ namespace HackedDesign
         {
             if (!GameManager.Instance.CurrentState.PlayerActionAllowed)
             {
+                rotateDirection = 0f;
                 return;
             }
             if (context.started)
