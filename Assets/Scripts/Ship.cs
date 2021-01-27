@@ -25,7 +25,8 @@ namespace HackedDesign
         [SerializeField] private float baseForwardSpeed = 20.0f;
         [SerializeField] private float chestForwardSpeed = -1.0f;
         [SerializeField] private float baseTurnSpeed = 10.0f;
-        [SerializeField] private int chests = 10;
+        [SerializeField] private int chests = 5;
+        [SerializeField] private int startingChests = 5;
         [SerializeField] private float projectileTime = 2.0f;
         [SerializeField] private float fireSpeed = 3.0f;
 
@@ -65,6 +66,8 @@ namespace HackedDesign
         {
             this.transform.position = startPosition;
             this.transform.rotation = Quaternion.identity;
+            this.chests = startingChests;
+            this.lastFireTime = 0;
         }
 
         public void Begin()

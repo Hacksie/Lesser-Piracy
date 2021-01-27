@@ -8,7 +8,7 @@ namespace HackedDesign
 {
     public class GameManager : MonoBehaviour
     {
-        public const string gameVersion = "1.0";
+        public const string gameVersion = "1.01";
 
         [Header("Game")]
         [SerializeField] private Camera? mainCamera = null;
