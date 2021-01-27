@@ -14,10 +14,6 @@ namespace HackedDesign
         {
             this.crashPresenter = crashPresenter;
             this.music = music;
-            //this.ships = ships;
-            // this.pool = pool;
-            //this.hudPresenter = hudPresenter;
-            // this.weaponManager = weaponManager;
         }
 
 
@@ -34,24 +30,17 @@ namespace HackedDesign
             Cursor.visible = true;
             this.crashPresenter.Hide();
             this.music.Stop();
-            //this.hudPresenter.Hide();
         }
 
 
         public void FixedUpdate()
         {
-            //this.player.FixedUpdateBehaviour();
-            // foreach(var ship in this.ships)
-            // {
-            //     ship.FixedUpdateBehaviour();
-            // }
+            
         }
 
         public void LateUpdate()
         {
-            // this.player.LateUpdateBehaviour();
-            // this.pool.UpdateLateBehaviour();
-            //this.hudPresenter.Repaint();
+            
         }
 
 
@@ -67,12 +56,7 @@ namespace HackedDesign
 
         public void Update()
         {
-            // Cursor.visible = false;
-            // //this.player.UpdateBehaviour();
-            // foreach(var ship in this.ships)
-            // {
-            //     ship.UpdateBehaviour();
-            // }            
+                       
         }
 
     }

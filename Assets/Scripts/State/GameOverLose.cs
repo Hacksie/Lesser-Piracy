@@ -15,10 +15,6 @@ namespace HackedDesign
         {
             this.losePresenter = losePresenter;
             this.music = music;
-            //this.ships = ships;
-            // this.pool = pool;
-            //this.hudPresenter = hudPresenter;
-            // this.weaponManager = weaponManager;
         }
 
 

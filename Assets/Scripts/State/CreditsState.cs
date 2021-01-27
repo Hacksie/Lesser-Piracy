@@ -39,7 +39,6 @@ namespace HackedDesign
         public void Update()
         {
             Cursor.visible = true;
-            //this.player.UpdateBehaviour();
             foreach (var ship in this.ships)
             {
                 ship.UpdateBehaviour();

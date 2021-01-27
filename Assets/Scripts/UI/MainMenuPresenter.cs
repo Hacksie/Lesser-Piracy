@@ -2,17 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.Audio;
 
 namespace HackedDesign.UI
 {
     public class MainMenuPresenter : AbstractPresenter
     {
 
+        [SerializeField] private AudioMixer masterMixer = null;
         [Header("Main")]
         [SerializeField] private GameObject defaultPanel = null;
         [SerializeField] private GameObject optionsPanel = null;
         [SerializeField] private GameObject howtoPanel = null;
         [SerializeField] private GameObject creditsPanel = null;
+
+        [Header("Options")]
+        [SerializeField] private UnityEngine.UI.Slider sfxSlider = null;
+        [SerializeField] private UnityEngine.UI.Slider musicSlider = null;        
 
         private MainMenuState state = MainMenuState.Default;
 
@@ -82,6 +88,26 @@ namespace HackedDesign.UI
             //GameManager.Instance.PlayerPreferences.Save();
             Application.Quit();
         }
+
+        public void PopulateValues()
+        {
+            sfxSlider.value = GameManager.Instance.PlayerPreferences.sfxVolume;
+            musicSlider.value = GameManager.Instance.PlayerPreferences.musicVolume;
+        }
+
+        public void SFXChangedEvent()
+        {
+            masterMixer.SetFloat("SFXVolume", sfxSlider.value);
+            GameManager.Instance.PlayerPreferences.sfxVolume = sfxSlider.value;
+            GameManager.Instance.PlayerPreferences.Save();
+        }
+
+        public void MusicChangedEvent()
+        {
+            masterMixer.SetFloat("MusicVolume", musicSlider.value);
+            GameManager.Instance.PlayerPreferences.musicVolume = musicSlider.value;
+            GameManager.Instance.PlayerPreferences.Save();
+        }        
 
         private enum MainMenuState
         {

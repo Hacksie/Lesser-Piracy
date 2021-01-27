@@ -20,11 +20,13 @@ namespace HackedDesign
         [SerializeField] private ObstaclePool? obstaclePool = null;
         [SerializeField] private Waves? waves = null;
         [SerializeField] private PropsPool? propsPool = null;
+        [SerializeField] private PlayerPreferences? preferences = null;
+        [SerializeField] private UnityEngine.Audio.AudioMixer? masterMixer = null;
         [SerializeField] private AudioSource? menuMusic = null;
         [SerializeField] private AudioSource? playMusic = null;
 
         [Header("UI")]
-        
+
         [SerializeField] private UI.HudPresenter? hudPanel = null;
         [SerializeField] private UI.MainMenuPresenter? mainMenuPanel = null;
         [SerializeField] private UI.ReadyPresenter? readyPanel = null;
@@ -41,10 +43,11 @@ namespace HackedDesign
 
         public Camera? MainCamera { get { return mainCamera; } private set { mainCamera = value; } }
         public PlayerController? Player { get { return player; } private set { player = value; } }
-        public List<Ship> Ships { get { return this.ships; }}
+        public List<Ship> Ships { get { return this.ships; } }
         public MermaidPool? MermaidPool { get => mermaidPool; private set => mermaidPool = value; }
         public ProjectilePool? ProjectilePool { get => projectilePool; private set => projectilePool = value; }
         public Waves? Waves { get => waves; private set => waves = value; }
+        public PlayerPreferences? PlayerPreferences { get { return preferences; } private set { preferences = value; } }
 
         public IState CurrentState
         {
@@ -61,7 +64,7 @@ namespace HackedDesign
                 this.currentState.Begin();
             }
         }
-       
+
 
         private GameManager() => Instance = this;
 
@@ -73,7 +76,7 @@ namespace HackedDesign
         void FixedUpdate() => CurrentState?.FixedUpdate();
 
         public void SetPlaying() => CurrentState = new PlayingState(this.player, this.ships, this.cursors, this.obstaclePool, this.propsPool, this.playMusic, this.hudPanel);
-        public void SetMainMenu() => CurrentState = new MainMenuState(this.player, this.ships, this.menuMusic, this.mainMenuPanel);
+        public void SetMainMenu() => CurrentState = new MainMenuState(this.player, this.ships, this.menuMusic, this.playMusic, this.mainMenuPanel);
         public void SetGameOverCrash() => CurrentState = new GameOverCrashState(this.crashPanel, this.playMusic);
         public void SetGameWin() => CurrentState = new GameOverWinState(this.winPanel, this.playMusic);
         public void SetGameLose() => CurrentState = new GameOverLoseState(this.losePanel, this.playMusic);
@@ -82,14 +85,17 @@ namespace HackedDesign
 
         private void CheckBindings()
         {
-            
+
         }
 
         private void Initialization()
         {
+            preferences = new PlayerPreferences(this.masterMixer);
+            preferences.Load();
+            preferences.SetPreferences();
             HideAllUI();
             SetMainMenu();
-        }        
+        }
 
         private void HideAllUI()
         {
@@ -101,15 +107,6 @@ namespace HackedDesign
             this.winPanel?.Hide();
             this.pausePanel?.Hide();
             this.cursors.ForEach(c => c.SetActive(false));
-            // this.startMenuPanel.Hide();
-            // this.deadPanel.Hide();
-            // this.dialogPanel.Hide();
-            // this.missionPanel.Hide();
-            // this.missionCompletePanel.Hide();
-            // this.levelPanel.Hide();
-            // this.gameOverPanel.Hide();
         }
-
     }
-
 }
