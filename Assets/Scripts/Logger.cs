@@ -9,14 +9,14 @@ namespace HackedDesign
         {
             
 #if UNITY_EDITOR
-            StringBuilder builder = new StringBuilder(gameObject);
-            builder.Append(" - ");
-            foreach (var s in messages)
-            {
-                builder.Append(s);
-            }
+            // StringBuilder builder = new StringBuilder(gameObject);
+            // builder.Append(" - ");
+            // foreach (var s in messages)
+            // {
+            //     builder.Append(s);
+            // }
 
-            Debug.Log(builder.ToString());
+            // Debug.Log(builder.ToString());
 #endif
         }
 
@@ -24,14 +24,14 @@ namespace HackedDesign
         {
             
 #if UNITY_EDITOR
-            StringBuilder builder = new StringBuilder(context.name);
-            builder.Append(" - ");
-            foreach (var s in messages)
-            {
-                builder.Append(s);
-            }
+            // StringBuilder builder = new StringBuilder(context.name);
+            // builder.Append(" - ");
+            // foreach (var s in messages)
+            // {
+            //     builder.Append(s);
+            // }
 
-            Debug.Log(builder.ToString(), context);
+            // Debug.Log(builder.ToString(), context);
 #endif
         }
 
